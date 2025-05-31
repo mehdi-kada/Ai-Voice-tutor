@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-
+import { redirect } from "next/navigation";
 import {
   Form,
   FormControl,
@@ -23,8 +23,9 @@ import {
 } from "@/components/ui/select";
 
 import { Input } from "@/components/ui/input";
-import { subjects } from "@/constants/subjects";
+import { subjects } from "@/constants";
 import React from "react";
+import { createCompanion } from "@/lib/actions/companion.actions";
 
 const formSchema = z.object({
   name: z.string().min(3, { message: "Companion name is required" }),
@@ -51,9 +52,16 @@ function CreateCompanion() {
     resolver: zodResolver(formSchema),
     defaultValues,
   });
-  const onSubmit = React.useCallback((values: z.infer<typeof formSchema>) => {
-    console.log(values);
-  }, []);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const companion = await createCompanion(values);
+    if (!companion) {
+      console.log("error in creating a companion");
+      redirect("/");
+    } else {
+      console.log(values);
+      redirect(`/companions/${companion.id}`);
+    }
+  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

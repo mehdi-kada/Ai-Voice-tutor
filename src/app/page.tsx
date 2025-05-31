@@ -1,7 +1,7 @@
 import CompanionCard from "@/components/ui/companioncard";
 import CompanionsList from "@/components/ui/companionslist";
 import CTA from "@/components/ui/cta";
-import { recentSessions } from "@/constants/data";
+import { recentSessions } from "@/constants";
 import React from "react";
 
 const Page = () => {

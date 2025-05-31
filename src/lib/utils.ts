@@ -1,4 +1,4 @@
-import { subjectsColors } from "@/constants/subjects"
+import { subjectsColors } from "@/constants"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
