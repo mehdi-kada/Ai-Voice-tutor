@@ -13,7 +13,7 @@ const Page = () => {
           <CompanionCard
             id="123"
             subject="math"
-            title="Neura the Brainy Explorer"
+            name="Neura the Brainy Explorer"
             topic="Neural Network of the Brain"
             duration={30}
             color="#E5D0FF"
@@ -21,7 +21,7 @@ const Page = () => {
           <CompanionCard
             id="123"
             subject="math"
-            title="Neura the Brainy Explorer"
+            name="Neura the Brainy Explorer"
             topic="Neural Network of the Brain"
             duration={30}
             color="#E5D0FF"
@@ -29,7 +29,7 @@ const Page = () => {
           <CompanionCard
             id="123"
             subject="math"
-            title="Neura the Brainy Explorer"
+            name="Neura the Brainy Explorer"
             topic="Neural Network of the Brain"
             duration={30}
             color="#E5D0FF"

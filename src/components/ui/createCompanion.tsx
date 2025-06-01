@@ -92,7 +92,7 @@ function CreateCompanion() {
               <FormLabel>subject</FormLabel>
               <FormControl>
                 <Select onValueChange={field.onChange} value={field.value}>
-                  <SelectTrigger className="input campitalize">
+                  <SelectTrigger className="input capitalize">
                     <SelectValue placeholder="Select the subject" />
                   </SelectTrigger>
                   <SelectContent>
