@@ -29,14 +29,14 @@ function SubjectFilter() {
       params.delete("subject");
     }
     if (params.toString() !== searchParams.toString()) {
-        // construct a query and avoid ? if params are empty 
-      const query = params? `?${params.toString()}` : "";  
+      // construct a query and avoid ? if params are empty
+      const query = params ? `?${params.toString()}` : "";
       router.push(`${pathName}?${query}`);
     }
   }, [subject]);
 
   return (
-    <Select onValueChange={setSubject} >
+    <Select onValueChange={setSubject}>
       <SelectTrigger className=" input captalize ">
         <SelectValue placeholder="subject" />
       </SelectTrigger>

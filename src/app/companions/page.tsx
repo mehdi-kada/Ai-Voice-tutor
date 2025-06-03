@@ -21,9 +21,13 @@ async function Companions({ searchParams }: SearchParams) {
           <SubjectFilter />
         </div>
       </section>
-      <section className="companions-grid">
-        {companions.map((companion)=>(
-          <CompanionCard key={companion.id} {...companion} color= {getSubjectColor(companion.subject)} />
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-10 mt-8">
+        {companions.map((companion) => (
+          <CompanionCard
+            key={companion.id}
+            {...companion}
+            color={getSubjectColor(companion.subject)}
+          />
         ))}
       </section>
     </main>

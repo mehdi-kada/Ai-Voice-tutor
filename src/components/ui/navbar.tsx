@@ -1,8 +1,9 @@
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
-import NavBarItems from "./navbaritems";
+
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import NavBarItems from "../navbaritems";
 
 function NavBar() {
   return (
