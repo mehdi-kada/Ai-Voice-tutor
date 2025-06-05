@@ -1,11 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { cn, configureAssistant, getSubjectColor } from "@/lib/utils";
+import {
+  cn,
+  configureAssistant,
+  getSubjectColor,
+  getSubjectColorDark,
+  getSubjectLightColor,
+} from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
 import Image from "next/image";
 import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
+import { subjectsColorsLight } from "@/constants";
+import Messages from "./Messages";
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -122,7 +130,7 @@ const CompanionComponent = ({
   };
 
   return (
-    <section className="flex flex-col h-[70vh]">
+    <section className="flex flex-col h-[70vh] ">
       <section className="flex gap-8 max-sm:flex-col">
         <div className="companion-section">
           <div
@@ -210,30 +218,7 @@ const CompanionComponent = ({
           </button>
         </div>
       </section>
-
-      <section className="transcript">
-        <div className="transcript-message no-scrollbar">
-          <h1>hi there this is suppose to be a transcript</h1>
-          {messages.map((message, index) => {
-            if (message.role === "assistant") {
-              return (
-                <p key={index} className="max-sm:text-sm">
-                  {name.split(" ")[0].replace("/[.,]/g, ", "")}:{" "}
-                  {message.content}
-                </p>
-              );
-            } else {
-              return (
-                <p key={index} className="text-primary max-sm:text-sm">
-                  {userName}: {message.content}
-                </p>
-              );
-            }
-          })}
-        </div>
-
-        <div className="transcript-fade" />
-      </section>
+      <Messages messages={messages} subject={subject} name={name} userName={userName} />
     </section>
   );
 };

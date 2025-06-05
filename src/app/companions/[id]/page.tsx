@@ -24,7 +24,7 @@ async function CompanionSession({
   if (!companion) redirect("/companions");
 
   return (
-    <main>
+    <main className="p-10 mb-5">
       <article className="flex rounded-border justify-between  p-6 max-md:flex-col">
         <div className="flex items-center gap-2">
           <div

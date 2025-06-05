@@ -16,6 +16,24 @@ export const subjectsColors = {
   economics: "#C8FFDF",
 };
 
+export const subjectsColorsLight = {
+  science: "#F5ECFF",
+  maths: "#FFF2B8",
+  language: "#E8F6FF",
+  coding: "#FFE8F4",
+  history: "#FFF8E8",
+  economics: "#E8FFF2",
+};
+
+export const subjectsColorsDark = {
+  science: "#7C3AED",
+  maths: "#D97706",
+  language: "#0284C7",
+  coding: "#DB2777",
+  history: "#EA580C",
+  economics: "#059669",
+};
+
 export const voices = {
   male: { casual: "2BJW5coyhAzSr8STdHbE", formal: "c6SfcYrb2t09NHXiT80T" },
   female: { casual: "ZIlrSGI4jZqobxRKprJz", formal: "sarah" },

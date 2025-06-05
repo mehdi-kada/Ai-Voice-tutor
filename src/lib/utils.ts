@@ -1,6 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { subjectsColors, voices } from "@/constants";
+import { subjectsColors, subjectsColorsDark, subjectsColorsLight, voices } from "@/constants";
 import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
 
 export function cn(...inputs: ClassValue[]) {
@@ -10,6 +10,14 @@ export function cn(...inputs: ClassValue[]) {
 export const getSubjectColor = (subject: string) => {
   return subjectsColors[subject as keyof typeof subjectsColors];
 };
+
+export const getSubjectLightColor = (subject: string) => {
+  return subjectsColorsLight[subject as keyof typeof subjectsColorsLight];
+};
+
+export const getSubjectColorDark = (subject : string) =>{
+  return subjectsColorsDark[subject as keyof typeof subjectsColorsDark]
+}
 
 export const configureAssistant = (voice: string, style: string) => {
   const voiceId =
