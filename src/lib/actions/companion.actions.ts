@@ -2,6 +2,8 @@
 
 import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
+import { supabaseIntegration } from "@sentry/nextjs";
+import { AArrowUp } from "lucide-react";
 
 export async function createCompanion(formData: CreateCompanion) {
   // you need to get the user creating the companion to insert it to the table in supabase
@@ -55,6 +57,59 @@ export async function getCompanion(id: string) {
     .from("companion")
     .select()
     .eq("id", id);
-  if(error) return console.log(error);
+  if (error) return console.log(error);
   return data[0];
 }
+
+export async function addToSession(companionId: string) {
+  const supabase = createSupabaseClient();
+  const user = await auth();
+
+  const { data, error } = await supabase.from("session_history").insert({
+    companion_id: companionId,
+    user_id: user,
+  });
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export const getRecentSessions = async (limit = 10) => {
+  const supabase = await createSupabaseClient();
+
+  const { data, error } = await supabase
+    .from("session_history")
+    // this is a join to get companions where companion_id equals the pk of companion table, you will get a companion object
+    .select(`companion:companion_id(*)`)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) throw new Error(error.message);
+
+  return data.map(({ companion }) => companion);
+};
+
+export const getUserSesssions = async (userId: string, limit = 10) => {
+  const supabase = await createSupabaseClient();
+  const { data, error } = await supabase
+    .from("session_history")
+    .select("companion:companion_id(*)")
+    .eq("user_id", userId)
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (error) throw new Error(error.message);
+  return data.map(({ companion }) => companion);
+};
+
+export const getUserCompanions = async (userId: string) => {
+  const supabase = await createSupabaseClient();
+  const { data, error } = await supabase
+    .from("companion")
+    .select()
+    .eq("author", userId);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+};

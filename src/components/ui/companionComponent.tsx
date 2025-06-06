@@ -14,6 +14,7 @@ import Lottie, { LottieRefCurrentProps } from "lottie-react";
 import soundwaves from "@/constants/soundwaves.json";
 import { subjectsColorsLight } from "@/constants";
 import Messages from "./Messages";
+import { addToSession } from "@/lib/actions/companion.actions";
 
 enum CallStatus {
   INACTIVE = "INACTIVE",
@@ -54,7 +55,10 @@ const CompanionComponent = ({
   }, [isSpeaking, lottieRef]);
 
   useEffect(() => {
-    const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
+    const onCallStart = () => {
+      setCallStatus(CallStatus.ACTIVE);
+      addToSession(companionId);
+    };
 
     const onCallEnd = () => {
       setCallStatus(CallStatus.FINISHED);
@@ -218,7 +222,12 @@ const CompanionComponent = ({
           </button>
         </div>
       </section>
-      <Messages messages={messages} subject={subject} name={name} userName={userName} />
+      <Messages
+        messages={messages}
+        subject={subject}
+        name={name}
+        userName={userName}
+      />
     </section>
   );
 };
