@@ -3,7 +3,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { createSupabaseClient } from "../supabase";
 import { supabaseIntegration } from "@sentry/nextjs";
-import { AArrowUp } from "lucide-react";
 
 export async function createCompanion(formData: CreateCompanion) {
   // you need to get the user creating the companion to insert it to the table in supabase
@@ -63,11 +62,12 @@ export async function getCompanion(id: string) {
 
 export async function addToSession(companionId: string) {
   const supabase = createSupabaseClient();
-  const user = await auth();
+  // returns an object with userId, need to destructure
+  const { userId } = await auth();
 
   const { data, error } = await supabase.from("session_history").insert({
     companion_id: companionId,
-    user_id: user,
+    user_id: userId,
   });
 
   if (error) throw new Error(error.message);
@@ -89,11 +89,11 @@ export const getRecentSessions = async (limit = 10) => {
   return data.map(({ companion }) => companion);
 };
 
-export const getUserSesssions = async (userId: string, limit = 10) => {
-  const supabase = await createSupabaseClient();
+export const getUserSessions = async (userId: string, limit = 10) => {
+  const supabase = createSupabaseClient();
   const { data, error } = await supabase
     .from("session_history")
-    .select("companion:companion_id(*)")
+    .select(`companion:companion_id(*)`)
     .eq("user_id", userId)
     .order("created_at", { ascending: false })
     .limit(limit);
